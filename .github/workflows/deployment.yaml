@@ -1,7 +1,7 @@
 name: Deployement
 on: push
 jobs:
-  deploy:
+  lint-check:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
@@ -10,6 +10,20 @@ jobs:
         run: npm ci
       - name: Check Lint
         run: npm run lint
+  test-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm ci
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm ci
       - name: Check Tests
         run: npm run test
       - name:  Build
